@@ -42,3 +42,4 @@ htmlcov/
 *.md
 !README.md
 !xuanji/templates/*.md.j2
+!skills/*.md

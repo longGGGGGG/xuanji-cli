@@ -27,7 +27,7 @@ brew install pipx
 pipx ensurepath
 
 # 克隆并安装
-git clone https://github.com/yourusername/xuanji-cli.git
+git clone https://github.com/longGGGGGG/xuanji-cli.git
 cd xuanji-cli
 pipx install -e .
 ```
@@ -342,15 +342,16 @@ xuanji workflow run \
 
 ### 大规模数据分析（MapReduce）
 
-当数据量超过 100 条时，xuanji-cli 自动启用 MapReduce 模式：
+对于大数据量分析，可以手动启用 MapReduce 模式（通过 `--mapreduce` 参数）：
 
 1. **Map 阶段**：数据分块（每块 50 条），使用轻量模型并行分析
 2. **Reduce 阶段**：合并子结果，使用主模型生成最终报告
 
+**默认行为**：不启用 MapReduce，使用分层采样策略（智能采样 + 主模型分析）。
+
 ```bash
-# 分析 500 条数据（自动启用 MapReduce）
-xuanji data get --project "北京全量" --limit 500 | \
-    xuanji analyze --functions summary,opinion
+# 使用 MapReduce 分析 500 条数据
+xuanji workflow run --project "北京全量" --limit 500 --mapreduce --output report.md
 ```
 
 **配置轻量模型以降低成本：**
@@ -445,9 +446,13 @@ xuanji config set llm_light.model_name "qwen3.5-flash"
 
 ### Q: 数据量很大，分析很慢？
 
-xuanji-cli 会自动启用 MapReduce 并行处理。你也可以减少数据量：
+默认使用分层采样策略，大数据量时可手动启用 MapReduce 并行处理：
 
 ```bash
+# 启用 MapReduce 模式
+xuanji workflow run --project "项目" --limit 500 --mapreduce --output "report.md"
+
+# 或减少数据量
 xuanji workflow run --project "项目" --limit 200 --output "report.md"
 ```
 
