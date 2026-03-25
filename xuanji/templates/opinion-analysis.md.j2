@@ -1,0 +1,97 @@
+# {{ title }}
+
+**项目名称:** {{ project_name }}
+**生成时间:** {{ generated_at }}
+**数据量:** {{ metadata.post_count }} 条
+**来源数:** {{ metadata.source_count }} 个
+
+---
+
+{% if summary %}
+## 执行摘要
+
+{{ summary }}
+
+---
+{% endif %}
+
+{% if opinion_analysis %}
+## 观点分析
+
+{{ opinion_analysis }}
+
+---
+{% endif %}
+
+{% if sentiment_analysis %}
+## 情感分析
+
+{{ sentiment_analysis }}
+
+---
+{% endif %}
+
+{% if kol_analysis %}
+## KOL分析
+
+{{ kol_analysis }}
+
+---
+{% endif %}
+
+{% if geography_analysis %}
+## 地域分布
+
+{{ geography_analysis }}
+
+---
+{% endif %}
+
+{% if engagement_analysis %}
+## 互动分析
+
+{{ engagement_analysis }}
+
+---
+{% endif %}
+
+{% if topics_analysis %}
+## 话题聚类
+
+{{ topics_analysis }}
+
+---
+{% endif %}
+
+{% if entities_analysis %}
+## 实体识别
+
+{{ entities_analysis }}
+
+---
+{% endif %}
+
+## 数据概览
+
+| 指标 | 数值 |
+|------|------|
+| 总帖子数 | {{ metadata.post_count }} |
+| 来源数 | {{ metadata.source_count }} |
+| 分析时间 | {{ metadata.analysis_time }} |
+
+### 样例数据
+
+{% for post in sample_posts %}
+**[{{ loop.index }}] {{ post.source }}**
+- 作者: {{ post.author or '未知' }}{% if post.author_fans %} (粉丝: {{ post.author_fans }}){% endif %}
+- 时间: {{ post.time }}
+- 内容: {{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}
+{% if post.likes is not none or post.forwards is not none or post.replies is not none %}
+- 互动: {% if post.likes is not none %}👍 {{ post.likes }}{% endif %}{% if post.forwards is not none %} 🔄 {{ post.forwards }}{% endif %}{% if post.replies is not none %} 💬 {{ post.replies }}{% endif %}
+{% endif %}
+
+{% endfor %}
+
+---
+
+*报告由 xuanji-cli 自动生成*

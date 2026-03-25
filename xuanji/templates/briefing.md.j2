@@ -1,0 +1,36 @@
+# {{ title }}
+
+**项目:** {{ project_name }} | **时间:** {{ generated_at }} | **数据量:** {{ metadata.post_count }}条
+
+---
+
+## 核心结论
+
+{% if summary %}
+{{ summary }}
+{% else %}
+暂无摘要数据
+{% endif %}
+
+---
+
+## 关键观点
+
+{% if opinion_analysis %}
+{{ opinion_analysis }}
+{% else %}
+暂无观点分析数据
+{% endif %}
+
+---
+
+## 建议行动
+
+基于以上分析，建议关注：
+1. 用户反馈的主要问题点
+2. 舆论热点话题的跟进
+3. 负面情感的及时回应
+
+---
+
+*简报由 xuanji-cli 自动生成*

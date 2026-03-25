@@ -1,0 +1,50 @@
+# {{ title }}
+
+**项目名称:** {{ project_name }}
+**生成时间:** {{ generated_at }}
+
+---
+
+## 情感分布概览
+
+{{ sentiment_analysis }}
+
+---
+
+## 数据摘要
+
+{{ summary }}
+
+---
+
+## 统计图表
+
+| 指标 | 数值 |
+|------|------|
+| 总帖子数 | {{ metadata.post_count }} |
+| 数据来源 | {{ metadata.source_count }} 个平台 |
+| 分析时间 | {{ metadata.analysis_time }} |
+
+---
+
+## 热门关键词
+
+{% if topics_analysis %}
+{{ topics_analysis }}
+{% else %}
+（未进行主题分析）
+{% endif %}
+
+---
+
+## 数据样本
+
+{% for post in sample_posts %}
+**[{{ loop.index }}]** {{ post.source }} | {{ post.time }}
+- 内容: {{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}
+
+{% endfor %}
+
+---
+
+*报告由 xuanji-cli 自动生成*
